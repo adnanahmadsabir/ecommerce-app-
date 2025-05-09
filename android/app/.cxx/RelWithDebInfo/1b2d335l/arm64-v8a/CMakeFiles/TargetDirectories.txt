@@ -1,0 +1,2 @@
+D:/Development/clothes_app/android/app/.cxx/RelWithDebInfo/1b2d335l/arm64-v8a/CMakeFiles/edit_cache.dir
+D:/Development/clothes_app/android/app/.cxx/RelWithDebInfo/1b2d335l/arm64-v8a/CMakeFiles/rebuild_cache.dir
