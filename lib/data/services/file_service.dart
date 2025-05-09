@@ -12,7 +12,7 @@ class FileService {
     try {
       final path = img.path;
       final dir = await getApplicationDocumentsDirectory();
-      final targetPath = "${dir.absolute.path}/temp.jpg";
+      final targetPath = "${dir.absolute.path}/${path.split('/').last}";
       final compressImg =
           await FlutterImageCompress.compressAndGetFile(path, targetPath);
       return File(compressImg!.path);
@@ -22,7 +22,7 @@ class FileService {
     }
   }
 
-  Future<File?> pickOnly ({bool isCameraSource = false}) async {
+  Future<File?> pickOnly({bool isCameraSource = false}) async {
     final source = isCameraSource ? ImageSource.camera : ImageSource.gallery;
     final pickedImg = await _picker.pickImage(source: source);
     if (pickedImg != null) {

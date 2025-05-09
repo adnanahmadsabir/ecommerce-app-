@@ -14,13 +14,11 @@ class AuthProvider extends ChangeNotifier {
 
   /// Variables
   bool _isObscure = true;
-  bool _isLoading = false;
   final emailCtrl = TextEditingController();
   final passwordCtrl = TextEditingController();
   final nameCtrl = TextEditingController();
 
   /// Getters
-  bool get isLoading => _isLoading;
   bool get isObscure => _isObscure;
   String get email => emailCtrl.text;
   String get password => passwordCtrl.text;
@@ -32,16 +30,6 @@ class AuthProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  void startLoading() {
-    _isLoading = true;
-    notifyListeners();
-  }
-
-  void stopLoading() {
-    _isLoading = false;
-    notifyListeners();
-  }
-
   void resetFieldsCtrl({bool isClearNameCtrl = false}) {
     emailCtrl.clear();
     passwordCtrl.clear();
@@ -50,7 +38,6 @@ class AuthProvider extends ChangeNotifier {
 
   /// HTTP EVENTS
   Future<void> _handleLogin(BuildContext context, {bool isUser = true}) async {
-    startLoading();
     final result = isUser
         ? await loginUseCase.loginUser(email, password)
         : await loginUseCase.loginAdmin(email, password);
@@ -66,7 +53,6 @@ class AuthProvider extends ChangeNotifier {
         resetFieldsCtrl();
         Utils.getPage(context, isUser ? DashboardScreen() : AdminHomeScreen());
     }
-    stopLoading();
   }
 
   /// }
@@ -81,7 +67,6 @@ class AuthProvider extends ChangeNotifier {
 
   // fun for sign up new user
   Future<void> signUpUser(BuildContext context) async {
-    startLoading();
     final result = (await signUpUseCase.signUp(name, email, password) ??
         [false, "Something went wrong!"]);
     debugPrint("$result");
@@ -99,14 +84,11 @@ class AuthProvider extends ChangeNotifier {
         Utils.showSnackBar(context, msg);
         Utils.getPage(context, DashboardScreen());
     }
-    stopLoading();
   }
 
   Future<User?> getUser() async => await loginUseCase.getUser();
   Future<void> logOut(BuildContext context) async {
-    startLoading();
     await loginUseCase.logOut();
-    stopLoading();
     if (context.mounted) Utils.getPage(context, LoginScreen());
   }
 

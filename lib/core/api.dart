@@ -1,6 +1,6 @@
 class Api {
   // server host url
-  static const hostUrl = "http://192.168.2.100";
+  static const hostUrl = "http://192.168.1.177";
   static const hostConnection = "$hostUrl/clothes_app";
   static const userConn = "$hostConnection/user";
   static const adminConn = "$hostConnection/admin";

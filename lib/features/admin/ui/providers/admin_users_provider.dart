@@ -39,15 +39,17 @@ class AdminUsersProvider extends ChangeNotifier {
     _toggleLoading(true);
     final pickedImg =
         await _fileService.pickOnly(isCameraSource: isCameraSource);
-    if (pickedImg != null && context.mounted) {
+    if (pickedImg != null) {
       final bytes = await pickedImg.readAsBytes();
       final kb = bytes.length / 1024;
       _image = pickedImg;
       _kbs = kb;
+      notifyListeners();
+      debugPrint("image: ${_image!.path}");
 
       if (context.mounted) {
         Navigator.pop(context);
-        Utils.getPage(context, UploadItemScreen(image: image!, kbs: kbs));
+        Utils.getPage(context, UploadItemScreen(image: _image!, kbs: kbs));
       }
     }
     _toggleLoading(false);

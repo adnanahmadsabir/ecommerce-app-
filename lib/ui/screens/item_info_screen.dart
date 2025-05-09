@@ -1,3 +1,4 @@
+import 'package:clothes_app/core/extensions.dart';
 import 'package:clothes_app/domain/entities/item.dart';
 import 'package:clothes_app/ui/providers/item_provider.dart';
 import 'package:clothes_app/ui/widgets/my_fonts.dart';
@@ -74,7 +75,7 @@ class ItemInfoScreen extends StatelessWidget {
                                   )
                                 ]),
                                 MyFonts.bodyL(
-                                  item.tags ?? 'N/A',
+                                  (item.tags ?? 'N/A').fixed(maxLength: 30),
                                 )
                               ],
                             ),

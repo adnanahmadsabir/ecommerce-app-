@@ -1,5 +1,10 @@
 import 'package:flutter/material.dart';
 
+// extension StringExtension on String {
+//   String fixed([int start = 13, String replacement = '...']) {
+//     return length > start ? '${substring(0, start)}$replacement' : this;
+//   }
+// }
 class Utils {
   static void showSnackBar(BuildContext context, String? msg) {
     ScaffoldMessenger.of(context).showSnackBar(

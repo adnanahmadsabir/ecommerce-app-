@@ -4,9 +4,8 @@ import 'package:clothes_app/core/utils.dart';
 import 'package:clothes_app/core/validators.dart';
 import 'package:clothes_app/ui/providers/auth_provider.dart';
 import 'package:clothes_app/ui/screens/login_screen.dart';
-import 'package:clothes_app/ui/widgets/my_button.dart';
 import 'package:clothes_app/ui/widgets/my_fonts.dart';
-import 'package:clothes_app/ui/widgets/my_loader.dart';
+import 'package:clothes_app/ui/widgets/my_loading_button.dart';
 import 'package:clothes_app/ui/widgets/my_text_button.dart';
 import 'package:clothes_app/ui/widgets/my_text_field.dart';
 import 'package:flutter/material.dart';
@@ -21,9 +20,7 @@ class SignUpScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final provider = context.read<AuthProvider>();
     return Scaffold(
-      body: Stack(
-        children: [
-          LayoutBuilder(builder: (context, constraints) {
+      body: LayoutBuilder(builder: (context, constraints) {
             return ConstrainedBox(
               constraints: BoxConstraints(maxHeight: constraints.maxHeight),
               child: SingleChildScrollView(
@@ -76,13 +73,13 @@ class SignUpScreen extends StatelessWidget {
                                   }),
                               Column(
                                 children: [
-                                  MyButton(
-                                    onPressed: () {
+                                  MyLoadingButton(
+                                    onPressed: () async {
                                       if (_formKey.currentState!.validate()) {
-                                        provider.signUpUser(context);
+                                        await provider.signUpUser(context);
                                       }
                                     },
-                                    text: "Sign Up",
+                                    title: "Sign Up"
                                   ),
                                   Row(
                                     mainAxisAlignment: MainAxisAlignment.center,
@@ -106,12 +103,7 @@ class SignUpScreen extends StatelessWidget {
                 ),
               ),
             );
-          }),
-          Selector<AuthProvider, bool>(
-              selector: (_, provider) => provider.isLoading,
-              builder: (_, isLoading, __) => MyLoader(isLoading: isLoading))
-        ],
-      ),
+          })
     );
   }
 }
